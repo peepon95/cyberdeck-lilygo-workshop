@@ -1,0 +1,10 @@
+{
+  "name": "Cyber Deck Build Together",
+  "short_name": "Cyber Deck",
+  "description": "A beginner-friendly LILYGO T-Display-S3 workshop guide.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#ff76a8",
+  "icons": []
+}

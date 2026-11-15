@@ -1,0 +1,12 @@
+.pio/
+.vscode/
+.idea/
+.DS_Store
+*.log
+.env
+.env.*
+secrets.h
+credentials.h
+__pycache__/
+*.pyc
+

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ff76a8">
+  <title>Cyber Deck Build Together · 28 November 2026</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="#top"><span>CD</span><b>CYBER DECK<br>BUILD TOGETHER</b></a>
+    <time datetime="2026-11-28">28 NOV 2026</time>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">BEGINNER-FRIENDLY CREATIVE TECH WORKSHOP</p>
+      <h1>BUILD YOUR<br><em>CYBER DECK</em></h1>
+      <p>Turn a tiny LILYGO screen into a virtual pet, game, productivity buddy, name badge or your own idea—with AI.</p>
+      <a class="button primary" href="#setup">Start step by step →</a>
+    </section>
+
+    <section class="setup" id="setup">
+      <p class="eyebrow">START HERE</p>
+      <h2>What laptop are you using?</h2>
+      <p>Choose one. Every following step will show the correct instructions.</p>
+      <div class="choices" id="osChoice">
+        <button data-value="mac"><b>Mac</b><span>macOS</span></button>
+        <button data-value="windows"><b>Windows</b><span>Windows 10 or 11</span></button>
+      </div>
+    </section>
+
+    <section class="wizard" id="workshop" hidden>
+      <div class="step-dots" id="stepDots" aria-label="Tutorial steps"></div>
+      <article id="stepContent" tabindex="-1"></article>
+      <nav class="step-actions">
+        <button class="button quiet" id="previousStep">← Back</button>
+        <button class="button primary" id="nextStep">Next step →</button>
+      </nav>
+    </section>
+
+    <section class="ideas" id="ideas">
+      <p class="eyebrow">AFTER YOUR FIRST FLASH</p>
+      <h2>Choose what your Cyber Deck becomes.</h2>
+      <div class="idea-grid" id="projectGrid"></div>
+    </section>
+
+    <section class="help" id="help">
+      <p class="eyebrow">QUICK HELP</p>
+      <h2>Something not working?</h2>
+      <div class="help-grid" id="helpGrid"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+  <footer><b>CYBER DECK BUILD TOGETHER</b><span>LILYGO T-Display-S3 · 28 November 2026</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
