@@ -22,9 +22,9 @@ The starter firmware and this guide are published in the same repository as clea
 
 - LILYGO T-Display-S3, ESP32-S3, 320×170 landscape display
 - Two active-low buttons on GPIO 0 and GPIO 14
-- Local access point: `Cyberdeck-XXXX`
+- Local access point: `LILYGO-SETUP-XXXXXX`
 - Local Wi-Fi password: `cyberdeck`
-- Local dashboard: <http://192.168.4.1>
+- Wi-Fi setup page: <http://192.168.4.1>
 - Mac workflow has been tested on hardware
 - Windows instructions are documentation-verified but still require an end-to-end hardware rehearsal
 
