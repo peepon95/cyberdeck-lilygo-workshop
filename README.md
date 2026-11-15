@@ -6,6 +6,8 @@ mode through the board's verified 8-bit parallel interface.
 
 ## What participants will see
 
+Public workshop guide: <https://cyberdeck-build-together.pages.dev>
+
 After the first successful upload:
 
 1. `HELLO WORLD!` and `MY FIRST LILYGO` appear for three seconds.

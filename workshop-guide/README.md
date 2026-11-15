@@ -2,6 +2,8 @@
 
 Interactive workshop guide for 28 November 2026. This website is intentionally separate from the LILYGO firmware repository.
 
+Public website: <https://cyberdeck-build-together.pages.dev>
+
 ## Preview locally
 
 From this folder, run:
