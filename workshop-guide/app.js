@@ -59,12 +59,14 @@ function toolSetup() {
 }
 
 const projects = [
-  ['FG', 'FrogGotchi', 'A frog companion that eats, sleeps and studies.'],
-  ['GA', 'Mini Arcade', 'Build a simple game using the two buttons.'],
-  ['SB', 'Study Buddy', 'Add a Pomodoro timer and encouraging messages.'],
-  ['ZN', 'Zen Frog', 'Create breathing exercises and calm pixel animation.'],
-  ['NB', 'Name Badge', 'Show custom text, colours and animation.'],
-  ['??', 'Your Idea', 'Invent something completely original.']
+  ['PG', 'PetGotchi', 'Create your own pet companion with feeding, sleep, happiness and different expressions.'],
+  ['RR', 'Rocket Rush', 'Move a neon spaceship with two buttons while it automatically shoots aliens.'],
+  ['SN', 'Pixel Snake', 'Guide a growing pixel snake, collect snacks and avoid hitting its tail.'],
+  ['CS', 'Catch the Stars', 'Move a basket left and right to catch stars before they fall.'],
+  ['PR', 'Pixel Racer', 'Steer a tiny car between obstacles and chase a high score.'],
+  ['SB', 'Study Buddy', 'Add a Pomodoro timer, break reminders and encouraging messages.'],
+  ['NB', 'Digital Name Badge', 'Show custom names, colours, pixel art and scrolling animation.'],
+  ['??', 'Your Own Idea', 'Invent an original pet, useful tool, artwork or two-button game.']
 ];
 
 const helps = [
