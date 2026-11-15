@@ -1,7 +1,6 @@
 const CACHE = 'cyber-deck-workshop-v2';
 const CORE = [
-  './', './index.html', './styles.css', './app.js', './manifest.webmanifest',
-  './assets/froggotchi-preview.png', './assets/frog-wave.png', './assets/frog-pond.png'
+  './', './index.html', './styles.css', './app.js', './manifest.webmanifest'
 ];
 
 self.addEventListener('install', event => {
