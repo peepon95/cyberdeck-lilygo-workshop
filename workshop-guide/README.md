@@ -29,6 +29,7 @@ The starter firmware and this guide are published in the same repository as clea
 - Wi-Fi setup page: <http://192.168.4.1>
 - Mac workflow has been tested on hardware
 - Windows instructions are documentation-verified but still require an end-to-end hardware rehearsal
+- Lovable is offered as an optional interface-design companion; Codex or Claude Code remains required for firmware building and USB flashing
 
 ## Files
 

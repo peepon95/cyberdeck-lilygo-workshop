@@ -1,4 +1,4 @@
-const CACHE = 'cyber-deck-workshop-v4';
+const CACHE = 'cyber-deck-workshop-v5';
 const CORE = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest',
   './assets/wifi-setup-reference.png'

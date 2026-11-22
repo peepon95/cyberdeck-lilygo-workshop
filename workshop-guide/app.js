@@ -3,6 +3,7 @@ const CONFIG = {
   zip: 'https://github.com/peepon95/cyberdeck-lilygo-workshop/archive/refs/heads/main.zip',
   codex: 'https://chatgpt.com/download/',
   claude: 'https://claude.ai/download',
+  lovable: 'https://lovable.dev/',
   platformio: 'https://docs.platformio.org/en/latest/core/installation/methods/installer-script.html'
 };
 
@@ -14,7 +15,7 @@ const osName = () => isMac() ? 'Mac' : 'Windows';
 const shellName = () => isMac() ? 'Terminal' : 'PowerShell';
 
 const command = (label, value) => `<div class="copy-card"><span>${label}</span><code>${value}</code><button data-copy="${encodeURIComponent(value)}">Copy</button></div>`;
-const prompt = value => `<div class="prompt-card"><span>PASTE INTO ${state.ai === 'claude' ? 'CLAUDE CODE' : 'CODEX'}</span><p>${value}</p><button data-copy="${encodeURIComponent(value)}">Copy prompt</button></div>`;
+const prompt = (value, target = state.ai === 'claude' ? 'CLAUDE CODE' : state.ai === 'lovable' ? 'CODEX OR CLAUDE CODE' : 'CODEX') => `<div class="prompt-card"><span>PASTE INTO ${target}</span><p>${value}</p><button data-copy="${encodeURIComponent(value)}">Copy prompt</button></div>`;
 const list = (...items) => `<ol>${items.map(item => `<li>${item}</li>`).join('')}</ol>`;
 
 const steps = [
@@ -24,7 +25,7 @@ const steps = [
   },
   {
     label: 'Choose AI tool',
-    render: () => `<p class="step-number">STEP 2</p><h2>Choose your AI coding tool.</h2><p>You only need one. Pick the tool you can sign into successfully.</p><div class="tool-choice" id="aiChoice"><button data-value="codex"><b>Codex</b><span>OpenAI coding agent</span></button><button data-value="claude"><b>Claude Code</b><span>Anthropic coding agent</span></button></div><div id="toolSetup">${toolSetup()}</div>`
+    render: () => `<p class="step-number">STEP 2</p><h2>Choose how you want to build.</h2><p>Codex and Claude Code can edit and flash firmware. Lovable is an optional visual-design companion for dashboards and interfaces.</p><div class="tool-choice" id="aiChoice"><button data-value="codex"><b>Codex</b><span>Firmware, build and flash</span></button><button data-value="claude"><b>Claude Code</b><span>Firmware, build and flash</span></button><button data-value="lovable"><b>Lovable</b><span>Interface design + coding-agent handoff</span></button></div><div id="toolSetup">${toolSetup()}</div>`
   },
   {
     label: 'Download starter',
@@ -32,7 +33,7 @@ const steps = [
   },
   {
     label: 'Open project',
-    render: () => `<p class="step-number">STEP 4</p><h2>Open the folder in ${state.ai === 'claude' ? 'Claude Code' : 'Codex'}.</h2>${state.ai === 'claude' ? `${list(`Open ${shellName()}.`, 'Move into the extracted project folder.', 'Start Claude Code from that folder.')}${command(shellName(), isMac() ? 'cd ~/Downloads/cyberdeck-lilygo-workshop-main && claude' : 'cd $HOME\\Downloads\\cyberdeck-lilygo-workshop-main; claude')}` : list('Open the Codex app.', 'Choose Open Folder.', 'Select cyberdeck-lilygo-workshop-main from Downloads.', 'Start a new chat for this project.')} ${prompt("I'm completely new to coding. Inspect this Cyber Deck PlatformIO project and explain platformio.ini and src/main.cpp in simple language. Do not change anything yet.")}`
+    render: () => openProjectStep()
   },
   {
     label: 'Install builder',
@@ -53,9 +54,23 @@ const steps = [
 ];
 
 function toolSetup() {
+  if (state.ai === 'lovable') {
+    return `<div class="tool-panel"><span class="partner-chip">SUPPORTING WORKSHOP PARTNER</span><h3>Design with Lovable</h3><p>Use Lovable to create the phone dashboard or visual concept. You will still use Codex or Claude Code for ESP32 firmware, PlatformIO and USB flashing.</p><a class="button secondary" href="${CONFIG.lovable}" target="_blank" rel="noreferrer">Open Lovable ↗</a></div>`;
+  }
   return state.ai === 'claude'
     ? `<div class="tool-panel"><h3>Install Claude Code</h3><p>Download Claude, sign in, then verify the command-line tool.</p><a class="button secondary" href="${CONFIG.claude}" target="_blank" rel="noreferrer">Official Claude download ↗</a>${isMac() ? command('Terminal', 'curl -fsSL https://claude.ai/install.sh | bash') : command('PowerShell', 'irm https://claude.ai/install.ps1 | iex')}${command(shellName(), 'claude --version')}</div>`
     : `<div class="tool-panel"><h3>Install Codex</h3><p>Download the Codex desktop app, install it and sign in.</p><a class="button secondary" href="${CONFIG.codex}" target="_blank" rel="noreferrer">Official Codex download ↗</a></div>`;
+}
+
+function openProjectStep() {
+  if (state.ai === 'lovable') {
+    const lovablePrompt = 'Design a mobile-first local dashboard for my LILYGO Cyber Deck. Use a playful retro pixel-art style, large touch-friendly controls and a responsive phone layout. It must be a visual prototype that can later be simplified into HTML, CSS and JavaScript hosted by an ESP32. Do not use a cloud database, login, external API or runtime CDN. Do not attempt to compile or flash hardware.';
+    return `<p class="step-number">STEP 4</p><h2>Prototype the interface in Lovable.</h2>${list('Open Lovable and create a new project.', 'Copy the prompt below and generate the first interface.', 'Keep the design focused on one small pet, game or dashboard.', 'When the design is ready, open the downloaded Cyber Deck starter in Codex or Claude Code.', 'Ask that coding agent to recreate only the approved lightweight interface inside the ESP32 project.')} ${prompt(lovablePrompt, 'LOVABLE')}<div class="note"><b>Important:</b> Lovable designs the interface; Codex or Claude Code integrates it with the existing firmware and PlatformIO. Do not let two tools edit the same files at the same time.</div>`;
+  }
+  if (state.ai === 'claude') {
+    return `<p class="step-number">STEP 4</p><h2>Open the folder in Claude Code.</h2>${list(`Open ${shellName()}.`, 'Move into the extracted project folder.', 'Start Claude Code from that folder.')}${command(shellName(), isMac() ? 'cd ~/Downloads/cyberdeck-lilygo-workshop-main && claude' : 'cd $HOME\\Downloads\\cyberdeck-lilygo-workshop-main; claude')}${prompt("I'm completely new to coding. Inspect this Cyber Deck PlatformIO project and explain platformio.ini and src/main.cpp in simple language. Do not change anything yet.")}`;
+  }
+  return `<p class="step-number">STEP 4</p><h2>Open the folder in Codex.</h2>${list('Open the Codex app.', 'Choose Open Folder.', 'Select cyberdeck-lilygo-workshop-main from Downloads.', 'Start a new chat for this project.')}${prompt("I'm completely new to coding. Inspect this Cyber Deck PlatformIO project and explain platformio.ini and src/main.cpp in simple language. Do not change anything yet.")}`;
 }
 
 const projects = [
@@ -74,8 +89,8 @@ const helps = [
   ['Build failed', 'Copy the full error into your coding assistant and ask for the smallest safe fix.'],
   ['Upload failed', 'Check the port, then try BOOT + RST recovery mode.'],
   ['Blank screen', 'Press RST once. If still blank, restore the starter firmware.'],
-  ['Cyberdeck Wi-Fi missing', 'Keep the board powered, press RST and wait ten seconds.'],
-  ['192.168.4.1 will not open', 'Stay on Cyberdeck Wi-Fi and type http://192.168.4.1 exactly.']
+  ['LILYGO setup Wi-Fi missing', 'Keep the board powered, press RST and wait ten seconds.'],
+  ['192.168.4.1 will not open', 'Stay on LILYGO-SETUP Wi-Fi and type http://192.168.4.1 exactly.']
 ];
 
 function setChoices() {
@@ -111,8 +126,14 @@ async function copy(value) {
 document.querySelectorAll('#osChoice button').forEach(button => button.onclick = () => { state.os = button.dataset.value; state.step = 0; save(); setChoices(); renderStep(); document.querySelector('#workshop').scrollIntoView({ behavior: 'smooth' }); });
 document.querySelector('#previousStep').onclick = () => goTo(state.step - 1);
 document.querySelector('#nextStep').onclick = () => state.step === steps.length - 1 ? document.querySelector('#ideas').scrollIntoView({ behavior: 'smooth' }) : goTo(state.step + 1);
-document.querySelector('#projectGrid').innerHTML = projects.map((project, index) => `<article><span>${project[0]}</span><h3>${project[1]}</h3><p>${project[2]}</p><button data-project="${index}">Copy starter prompt</button></article>`).join('');
-document.querySelectorAll('[data-project]').forEach(button => button.onclick = () => copy(`Inspect my existing Cyber Deck LILYGO T-Display-S3 PlatformIO project first. Help me build ${projects[+button.dataset.project][1]}: ${projects[+button.dataset.project][2]} Preserve the verified 320x170 display configuration, Wi-Fi, two button GPIOs and existing working features. Build with PlatformIO, explain how to test it, and ask before flashing or publishing.`));
+document.querySelector('#projectGrid').innerHTML = projects.map((project, index) => `<article><span>${project[0]}</span><h3>${project[1]}</h3><p>${project[2]}</p><button data-project="${index}">Copy project prompt</button></article>`).join('');
+document.querySelectorAll('[data-project]').forEach(button => button.onclick = () => {
+  const project = projects[+button.dataset.project];
+  const text = state.ai === 'lovable'
+    ? `Create a mobile-first visual prototype for ${project[1]}: ${project[2]} Use a retro pixel-art style and large touch controls. Keep it suitable for a 320x170 LILYGO Cyber Deck companion interface. Use no login, cloud database, external API or runtime CDN. This is an interface prototype only; do not attempt to compile or flash hardware.`
+    : `Inspect my existing Cyber Deck LILYGO T-Display-S3 PlatformIO project first. Help me build ${project[1]}: ${project[2]} Preserve the verified 320x170 display configuration, Wi-Fi, two button GPIOs and existing working features. Build with PlatformIO, explain how to test it, and ask before flashing or publishing.`;
+  copy(text);
+});
 document.querySelector('#helpGrid').innerHTML = helps.map(item => `<details><summary>${item[0]}</summary><p>${item[1]}</p></details>`).join('');
 setChoices(); renderStep();
 
