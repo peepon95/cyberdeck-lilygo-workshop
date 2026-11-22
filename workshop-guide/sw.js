@@ -1,7 +1,7 @@
-const CACHE = 'cyber-deck-workshop-v7';
+const CACHE = 'cyber-deck-workshop-v8';
 const CORE = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest',
-  './assets/wifi-setup-reference.png'
+  './assets/wifi-setup-reference.png', './assets/wifi-portal-reference.png'
 ];
 
 self.addEventListener('install', event => {
