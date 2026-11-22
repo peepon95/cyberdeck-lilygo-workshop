@@ -8,7 +8,7 @@ const CONFIG = {
 };
 
 const saved = JSON.parse(localStorage.getItem('cyberDeckGuide') || '{}');
-const state = { os: saved.os || '', ai: saved.ai || 'codex', step: Number.isInteger(saved.step) ? saved.step : 0 };
+const state = { os: saved.os || '', ai: saved.ai === 'claude' ? 'claude' : 'codex', step: Number.isInteger(saved.step) ? saved.step : 0 };
 const save = () => localStorage.setItem('cyberDeckGuide', JSON.stringify(state));
 const isMac = () => state.os === 'mac';
 const osName = () => isMac() ? 'Mac' : 'Windows';
@@ -25,7 +25,7 @@ const steps = [
   },
   {
     label: 'Choose AI tool',
-    render: () => `<p class="step-number">STEP 2</p><h2>Choose how you want to build.</h2><p>Codex and Claude Code can edit and flash firmware. Lovable is an optional visual-design companion for dashboards and interfaces.</p><div class="tool-choice" id="aiChoice"><button data-value="codex"><b>Codex</b><span>Firmware, build and flash</span></button><button data-value="claude"><b>Claude Code</b><span>Firmware, build and flash</span></button><button data-value="lovable"><b>Lovable</b><span>Interface design + coding-agent handoff</span></button></div><div id="toolSetup">${toolSetup()}</div>`
+    render: () => `<p class="step-number">STEP 2</p><h2>Choose how you want to build.</h2><p>Choose Codex or Claude Code to set up, build and flash your LILYGO.</p><div class="tool-choice" id="aiChoice"><button data-value="codex"><b>Codex</b><span>Firmware, build and flash</span></button><button data-value="claude"><b>Claude Code</b><span>Firmware, build and flash</span></button></div><div id="toolSetup">${toolSetup()}</div>`
   },
   {
     label: 'Download starter',
@@ -49,7 +49,7 @@ const steps = [
   },
   {
     label: 'Open dashboard',
-    render: () => `<p class="step-number">STEP 8</p><h2>Connect your Cyber Deck to Wi-Fi.</h2><img class="setup-photo" src="assets/wifi-setup-reference.png" alt="LILYGO screen showing its Wi-Fi Setup network and local address">${list('Read the unique LILYGO-SETUP name on the screen.', 'On your phone or laptop, open Wi-Fi settings.', 'Join that LILYGO-SETUP network using the password cyberdeck.', 'If it says No Internet, stay connected.', 'Open http://192.168.4.1 in a browser.', 'Enter your phone hotspot name and password, then tap Save and connect.', 'Watch the LILYGO change to Wi-Fi Connected and show its assigned IP address.')}<div class="credentials"><span>WI-FI</span><b>LILYGO-SETUP-XXXXXX</b><span>PASSWORD</span><b>cyberdeck</b><span>SETUP PAGE</span><b>192.168.4.1</b></div><div class="note"><b>Next time:</b> the saved network reconnects automatically. If it cannot connect, the LILYGO setup network remains available so you can try again.</div>`
+    render: () => `<p class="step-number">STEP 8</p><h2>Connect your Cyber Deck to Wi-Fi.</h2><img class="setup-photo" src="assets/wifi-setup-reference.png" alt="LILYGO screen showing its Wi-Fi Setup network and local address">${list('Read the unique LILYGO-SETUP name on the screen.', 'On your phone or laptop, open Wi-Fi settings.', 'Join that LILYGO-SETUP network using the password displayed on your LILYGO.', 'If it says No Internet, stay connected.', 'Open http://192.168.4.1 in a browser.', 'Enter your phone hotspot name and password, then tap Save and connect.', 'Watch the LILYGO change to Wi-Fi Connected and show its assigned IP address.')}<div class="credentials"><span>WI-FI</span><b>LILYGO-SETUP-XXXXXX</b><span>PASSWORD</span><b>Use the password shown on your screen</b><span>SETUP PAGE</span><b>192.168.4.1</b></div><details><summary>Want an easier setup password?</summary><p>Ask your coding agent to change the setup Wi-Fi password and its LCD label together. Use at least 8 characters.</p>${prompt("Help me change the LILYGO setup access-point password to an easier password I choose, with at least 8 characters. Update the password shown on the LCD to match, preserve hotspot credentials and display pins, build with PlatformIO, and ask before flashing.")}</details><div class="note"><b>Next time:</b> the saved network reconnects automatically. If it cannot connect, the LILYGO setup network remains available so you can try again.</div>`
   }
 ];
 
